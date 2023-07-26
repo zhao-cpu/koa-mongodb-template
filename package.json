@@ -1,0 +1,24 @@
+{
+	"name": "koa",
+	"version": "1.0.0",
+	"description": "koa mongodb template",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon ./src/main.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"koa",
+		"mongodb",
+		"mongoose",
+		"template"
+	],
+	"author": "xr",
+	"license": "ISC",
+	"dependencies": {
+		"@koa/router": "^12.0.0",
+		"dotenv": "^16.3.1",
+		"koa": "^2.14.2",
+		"mongoose": "^7.4.1"
+	}
+}
