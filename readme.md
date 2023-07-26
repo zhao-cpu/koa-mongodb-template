@@ -41,3 +41,23 @@ const { koaBody } = require("koa-body");
 
 app.use(koaBody());
 ```
+
+## koa-static
+
+配置静态资源
+
+下载
+
+```js
+npm install koa-static
+```
+
+使用
+
+```js
+const path = require("node:path");
+const static = require("koa-static");
+
+app.use(static(path.join(__dirname, "../public")));
+// http://127.0.0.1:3000/images/test.jpg
+```
