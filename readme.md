@@ -129,3 +129,43 @@ router.get("/", async (ctx) => {
 
 </html>
 ```
+
+## formidable 文件上传
+
+下载
+
+```js
+npm install formidable@v2
+```
+
+使用
+
+```js
+const path = require("node:path");
+const formidable = require("formidable");
+
+router.post("/", async (ctx, next) => {
+	const form = formidable({
+		multiples: true,
+		// 设置上传文件的保存目录
+		uploadDir: path.join(__dirname, "../public/uploads"),
+		// 保存文件后缀
+		keepExtensions: true,
+		// 修改文件名 必须返回一个字符串即：新的存储文件名称
+		filename: (name, ext, part, form) => {
+			return `ttttt${ext}`;
+		},
+	});
+
+	await new Promise((resolve, reject) => {
+		form.parse(ctx.req, (err, fields, files) => {
+			if (err) return reject(err);
+			// files.file file就是前端上传的字段名称
+			ctx.body = { fields, files: files.file };
+			resolve();
+		});
+	});
+
+	return await next();
+});
+```
