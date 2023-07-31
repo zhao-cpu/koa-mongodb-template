@@ -23,6 +23,7 @@
 		"dotenv": "^16.3.1",
 		"ejs": "^3.1.9",
 		"formidable": "^2.1.2",
+		"jsonwebtoken": "^9.0.1",
 		"koa": "^2.14.2",
 		"koa-body": "^6.0.1",
 		"koa-json-error": "^3.1.2",

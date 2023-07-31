@@ -169,3 +169,33 @@ router.post("/", async (ctx, next) => {
 	return await next();
 });
 ```
+
+## jsonwebtoken
+
+下载
+
+```js
+npm install jsonwebtoken
+```
+
+生成 token
+
+```js
+const jwt = require("jsonwebtoken");
+const token = jwt.sign(payload, JWTSECRET, { expiresIn: 60 * 60 * 24 });
+```
+
+验证 token
+
+```js
+jwt.verify(token, JWTSECRET);
+```
+
+### 报错 Expected \"payload\" to be a plain object.(翻译结果为：“payload”应为纯对象。)
+
+返回的不是纯对象 == `res._doc`
+
+```js
+const res = await UserModel.create(body);
+const token = jwt.sign(res._doc, JWTSECRET, { expiresIn: 60 * 60 * 24 });
+```
