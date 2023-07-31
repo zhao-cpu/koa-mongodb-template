@@ -1,4 +1,5 @@
 const Router = require("@koa/router");
+
 const { create, findAll, findOne, remove, update } = require("../controller/UserController");
 const { auth } = require("../middleware/index");
 

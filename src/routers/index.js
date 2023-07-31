@@ -1,4 +1,3 @@
-const path = require("node:path");
 const fs = require("node:fs");
 
 const Router = require("@koa/router");

@@ -199,3 +199,36 @@ jwt.verify(token, JWTSECRET);
 const res = await UserModel.create(body);
 const token = jwt.sign(res._doc, JWTSECRET, { expiresIn: 60 * 60 * 24 });
 ```
+
+## bcryptjs
+
+下载
+
+```js
+npm install bcryptjs
+```
+
+使用
+
+```js
+/**
+ * 加密
+ * @param {*} val
+ * @returns
+ */
+const crpytPassword = (val) => {
+	const salt = bcrypt.genSaltSync(10);
+	const hash = bcrypt.hashSync(val, salt);
+	return hash;
+};
+
+/**
+ * 解密验证
+ * @param {*} val 原始值
+ * @param {*} hash 加密后的值
+ * @returns
+ */
+const checkPassword = (val, hash) => {
+	return bcrypt.compareSync(val, hash);
+};
+```

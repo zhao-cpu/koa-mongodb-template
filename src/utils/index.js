@@ -1,6 +1,8 @@
 const path = require("node:path");
 const fs = require("node:fs");
+
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const { JWTSECRET } = process.env;
 
@@ -34,8 +36,31 @@ const checkToken = (token) => {
 	return jwt.verify(token, JWTSECRET);
 };
 
+/**
+ * 加密
+ * @param {*} val
+ * @returns
+ */
+const crpytPassword = (val) => {
+	const salt = bcrypt.genSaltSync(10);
+	const hash = bcrypt.hashSync(val, salt);
+	return hash;
+};
+
+/**
+ * 解密验证
+ * @param {*} val 原始值
+ * @param {*} hash 加密后的值
+ * @returns
+ */
+const checkPassword = (val, hash) => {
+	return bcrypt.compareSync(val, hash);
+};
+
 module.exports = {
 	mkdirTime,
 	setToken,
 	checkToken,
+	crpytPassword,
+	checkPassword,
 };

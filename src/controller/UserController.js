@@ -1,6 +1,8 @@
 const Schema = require("async-validator");
+
 const UserModel = require("../model/UserModel");
 const { phoneRegular } = require("../utils/regular");
+const { crpytPassword } = require("../utils/index");
 
 class UserController {
 	async create(ctx) {
@@ -41,6 +43,8 @@ class UserController {
 
 		const validator = new Schema.default(descriptor);
 		await validator.validate(body);
+
+		body.password = crpytPassword(body.password);
 
 		const data = await UserModel.create(body);
 		ctx.body = {
