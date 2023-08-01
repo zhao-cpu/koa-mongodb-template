@@ -6,6 +6,8 @@
 	"scripts": {
 		"start": "nodemon ./src/main.js",
 		"dev": "node ./src/main.js",
+		"pm2": "pm2 start ./src/main.js --watch",
+		"restart": "pm2 restart ./src/main.js --watch",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [

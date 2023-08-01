@@ -232,3 +232,105 @@ const checkPassword = (val, hash) => {
 	return bcrypt.compareSync(val, hash);
 };
 ```
+
+## pm2 负载均衡
+
+下载
+
+```js
+npm install pm2@latest -g
+```
+
+查看版本
+
+```js
+pm2 - v;
+```
+
+启动
+
+```js
+pm2 start app.js
+
+// --watch 监听
+pm2 start app.js --watch
+
+// --name 别名
+pm2 start app.js --name test
+```
+
+重载(不关闭)和重启(瞬间关闭开启)
+
+```js
+pm2 reload app.js
+pm2 reload all
+
+pm2 restart app.js
+pm2 restart all
+```
+
+从 pm2 中关闭
+
+```js
+
+pm2 stop id值
+
+// 例
+pm2 stop 0
+pm2 stop all
+```
+
+从 pm2 中移除
+
+```js
+pm2 delete 0
+pm2 delete all
+```
+
+查看 pm2 所有项目列表
+
+```js
+pm2 list
+```
+
+查看详情
+
+```js
+pm2 show name的值
+
+// 例
+pm2 show app
+```
+
+实时监控查看资源
+
+```js
+pm2 monit
+```
+
+查看日志
+
+```js
+pm2 logs
+
+
+pm2 logs app
+```
+
+### mode
+
+-   fork
+    只启动一个进程单实例，用于多语言混编 python php
+
+-   cluster
+    多实例多进程,只适用 node 一种语言,不需要额外端口配置
+
+生成配置文件
+
+```js
+pm2 init simple
+
+
+// 运行
+pm2 start .\ecosystem.config.js
+```
