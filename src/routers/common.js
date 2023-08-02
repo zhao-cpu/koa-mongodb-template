@@ -5,6 +5,7 @@ const formidable = require("formidable");
 const { mkdirTime } = require("../utils/index");
 const { refreshToken } = require("../utils/index");
 const { auth } = require("../middleware/index");
+const CityModel = require("../model/CityModel");
 
 const { JWTSECRET } = process.env;
 
@@ -52,4 +53,15 @@ router.get("/refresh", auth, (ctx) => {
 		token: newToken,
 	};
 });
+
+router.get("/city", async (ctx) => {
+	const { level = "1", pcode = "0" } = ctx.request.query;
+	const data = await CityModel.find({ level, pcode });
+	ctx.body = {
+		code: 0,
+		msg: "获取成功",
+		data,
+	};
+});
+
 module.exports = router;
