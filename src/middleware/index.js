@@ -3,7 +3,6 @@ const { checkToken } = require("../utils/index");
 const auth = async (ctx, next) => {
 	try {
 		const { authorization } = ctx.request.header;
-		console.log("authorization", authorization);
 		const token = authorization.replace("Bearer ", "");
 		const userInfo = checkToken(token);
 		ctx.state.userInfo = userInfo;

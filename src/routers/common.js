@@ -3,10 +3,14 @@ const dayjs = require("dayjs");
 const formidable = require("formidable");
 
 const { mkdirTime } = require("../utils/index");
+const { refreshToken } = require("../utils/index");
+const { auth } = require("../middleware/index");
 
-const router = new Router({ prefix: "/upload" });
+const { JWTSECRET } = process.env;
 
-router.post("/", async (ctx, next) => {
+const router = new Router();
+
+router.post("/upload", auth, async (ctx, next) => {
 	const time = dayjs().format("YYYYMMDD");
 	const dir = mkdirTime(time);
 
@@ -33,4 +37,19 @@ router.post("/", async (ctx, next) => {
 	return await next();
 });
 
+router.get("/refresh", auth, (ctx) => {
+	const { authorization } = ctx.request.header;
+	const token = authorization.replace("Bearer ", "");
+	if (!token)
+		ctx.body = {
+			code: 1,
+			msg: "token 不存在",
+		};
+	const newToken = refreshToken(token, 60 * 6, JWTSECRET);
+	ctx.body = {
+		code: 0,
+		msg: "刷新成功",
+		token: newToken,
+	};
+});
 module.exports = router;
