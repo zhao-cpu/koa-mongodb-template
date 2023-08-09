@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>socket</h1>
+    <input type="text" class="input">
+    <button class="btn">发送</button>
+    <script>
+
+        /**
+         * 发送消息封装
+         * @param {*} type 1 获取用户列表 2 群发 3 私发
+         * @param {*} userInfo 用户信息
+         * @param {*} data 返回的数据
+         * @returns
+         */
+        function sendMessage({ type, data, userId }) {
+            return JSON.stringify({
+                type,
+                data,
+                userId
+            });
+        }
+
+        const inputDom = document.querySelector(".input")
+        const btn = document.querySelector('.btn')
+
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGNiZDQwZTFhZjg4OWY1YmRjNzcwMzEiLCJhdmF0YXIiOiIiLCJ1c2VyTmFtZSI6ImxzIiwicGFzc3dvcmQiOiIkMmEkMTAkWWNXYk9TQ0RwR3MudkZFRkRmSFJkLnVQNGNIZW1aRlVENVc0WVVjY0NzQjlzUkNYWkhsa1ciLCJpYXQiOjE2OTE1MDE1OTgsImV4cCI6MTY5MTU4Nzk5OH0.QuG4ljGM1n7zy-fQvB6H4AYqS7Evnz1CSABnfuqYnaA"
+        const socket = new WebSocket("ws://localhost:8080?token=" + token)
+
+        // 群发
+        // btn.addEventListener('click', () => {
+        //     const value = inputDom.value
+        //     socket.send(sendMessage({ type: 2, data: value }))
+        // })
+
+        // 私发
+        btn.addEventListener('click', () => {
+            const value = inputDom.value
+            socket.send(sendMessage({ type: 3, data: value, userId: "64ca6c18b956d61b8dbd1f14" }))
+        })
+
+        socket.onmessage = (msg) => {
+            console.log('message', JSON.parse(msg?.data));
+        }
+
+        socket.onopen = () => {
+            console.log('连接成功');
+        }
+
+        socket.onerror = () => {
+            console.log('err');
+        }
+    </script>
+</body>
+
+</html>

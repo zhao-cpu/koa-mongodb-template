@@ -1,4 +1,5 @@
 const app = require("./app");
+require("./app/socket");
 
 const { N_PORT } = process.env;
 

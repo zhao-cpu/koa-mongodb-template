@@ -64,4 +64,8 @@ router.get("/city", async (ctx) => {
 	};
 });
 
+router.get("/chat", async (ctx) => {
+	await ctx.render("socket", {});
+});
+
 module.exports = router;

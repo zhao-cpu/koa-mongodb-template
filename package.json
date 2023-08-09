@@ -32,6 +32,7 @@
 		"koa-json-error": "^3.1.2",
 		"koa-static": "^5.0.0",
 		"koa-views": "^8.1.0",
-		"mongoose": "^7.4.1"
+		"mongoose": "^7.4.1",
+		"ws": "^8.13.0"
 	}
 }
