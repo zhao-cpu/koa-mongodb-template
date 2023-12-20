@@ -1,6 +1,9 @@
+const path = require("node:path");
+
 const Router = require("@koa/router");
 const dayjs = require("dayjs");
 const formidable = require("formidable");
+const send = require("koa-send");
 
 const { mkdirTime } = require("../utils/index");
 const { refreshToken } = require("../utils/index");
@@ -36,6 +39,12 @@ router.post("/upload", auth, async (ctx, next) => {
 	});
 
 	return await next();
+});
+
+router.get("/downloads", async (ctx, next) => {
+	const filePath = "/uploads/20230727/baca7d568e3cbbd1a0c360700.webp.jpg";
+	ctx.attachment(filePath);
+	await send(ctx, filePath, { root: path.join(__dirname, "../public") });
 });
 
 router.get("/refresh", auth, (ctx) => {
